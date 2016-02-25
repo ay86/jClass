@@ -1,18 +1,9 @@
 /*
  jClass 源文件
  */
-
-var jClass = {
-	$: function () {
-		var __selector = new jClass.__class;
-		return __selector.apply(jClass, Array.prototype.slice.call(arguments, 0));
-	},
-	__class: function () {
-		return this.selector;
-	}
-};
-jClass.__class.prototype = {
-	extend: function (oObject) {
+(function () {
+	/* 类继承 */
+	function __extend__(oObject) {
 		function __fIterator(oOld, oNew) {
 			for (var x in oNew) {
 				oOld[x] = oNew[x];
@@ -26,8 +17,15 @@ jClass.__class.prototype = {
 			}
 		}
 		return oObject;
-	},
-	selector: function (sExpression, oScopeDOM) {
+	}
+
+	/* 数据原型 */
+	function __proto__() {
+		this.init.apply(this, arguments[0]);
+	}
+
+	__proto__.prototype = [];
+	__proto__.prototype.init = function (sExpression, oScopeDOM) {
 		/**
 		 * 数组内查找
 		 * @param aArray 查询的数组对象
@@ -138,6 +136,7 @@ jClass.__class.prototype = {
 			var aGet = [];
 			var sVal = sKey.substr(1);
 			var oScope = oScopeDOM || document;
+			oScope['version'] && (oScope = oScope[0]);
 			var oObj, i;
 			switch (sKey.substr(0, 1)) {
 				case '<': // create element
@@ -210,7 +209,16 @@ jClass.__class.prototype = {
 			}
 		}
 
+		/**
+		 * 选择器获取对萌
+		 * @param sExpr 选择器表达式
+		 * @returns {*}
+		 * @private
+		 */
 		function __fGet(sExpr) {
+			if (!sExpr) {
+				return [];
+			}
 			if (typeof sExpr === 'object' && sExpr.ownerDocument) {
 				return [sExpr];
 			}
@@ -250,15 +258,11 @@ jClass.__class.prototype = {
 			return aResult;
 		}
 
+		var _jClass = jClass;
 		var aElem = __fGet(sExpression);
-
-		var JC = this;
-		var __fExtend = JC.__class.prototype.extend;
-
-		var oSelector = {
-			ver: '2.0',
-			elements: aElem,
-			length: aElem.length,
+		var oJC = {
+			// 选择器内置版本号
+			version: '2.0',
 			each: function (fCallBack) {
 				if (typeof fCallBack === 'function') {
 					__fAllElementsOpa(this.elements, function (index) {
@@ -325,7 +329,7 @@ jClass.__class.prototype = {
 					_parent.appendChild(oObj);
 				}
 				else {
-					if (oObj.ver) {
+					if (oObj.version) {
 						__fAllElementsOpa(oObj.elements, function () {
 							_parent.appendChild(this);
 						});
@@ -342,7 +346,7 @@ jClass.__class.prototype = {
 					_current.parentNode.insertBefore(oObj, _current);
 				}
 				else {
-					if (oObj.ver) {
+					if (oObj.version) {
 						__fAllElementsOpa(oObj.elements, function () {
 							_current.parentNode.insertBefore(this, _current);
 						});
@@ -368,20 +372,20 @@ jClass.__class.prototype = {
 				return this;
 			},
 			clone: function (bDeep) {
-				var _obj = __fExtend({}, this);
+				var _obj = __extend__({}, this);
 				_obj.elements = [this.elements[0].cloneNode(true)];
 				return _obj;
 			},
 			html: function (sInner) {
 				if (sInner) {
 					__fAllElementsOpa(this.elements, function () {
-						this.innerHTML = sInner;
+						this['innerHTML'] = sInner;
 					});
+					return this;
 				}
 				else {
 					return this.elements[0].innerHTML;
 				}
-				return this;
 			},
 			outerHtml: function () {
 				return this.elements[0].outerHTML;
@@ -389,40 +393,41 @@ jClass.__class.prototype = {
 			val: function (sValue) {
 				if (sValue) {
 					this.elements[0].value = sValue;
+					return this;
 				}
 				return this.elements[0].value;
 			},
-			e: function (nIndex) {
-				return __fExtend(this, {elements: [this.elements[nIndex]]});
+			eq: function (nIndex) {
+				return _jClass(this.elements[nIndex]);
 			},
 			first: function () {
-				return this.e(0);
+				return this.eq(0);
 			},
 			last: function () {
-				return this.e(this.elements.length);
+				return this.eq(this.elements.length - 1);
 			},
 			prev: function () {
 				var oObj = this.elements[0].previousSibling;
 				if (oObj) {
 					if (!oObj.tagName || oObj.tagName == '!') {
-						return __fExtend(this, {elements: [oObj]}).prev();
+						return _jClass(oObj).prev();
 					}
-					return __fExtend(this, {elements: [oObj]});
+					return _jClass(oObj);
 				}
 			},
 			next: function () {
 				var oObj = this.elements[0].nextSibling;
 				if (oObj) {
 					if (!oObj.tagName || oObj.tagName == '!') {
-						return __fExtend(this, {elements: [oObj]}).next();
+						return _jClass(oObj).next();
 					}
-					return __fExtend(this, {elements: [oObj]});
+					return _jClass(oObj);
 				}
 			},
 			css: function (sProp) {
 				var oObj = this.elements[0];
 				var AttValue = oObj.currentStyle ? oObj.currentStyle[sProp] : document.defaultView.getComputedStyle(oObj, null)[sProp];
-				return isNaN(parseInt(AttValue, 10)) ? AttValue.toLowerCase() : parseInt(AttValue, 10);
+				return isNaN(parseFloat(AttValue)) ? AttValue.toLowerCase() : parseFloat(AttValue);
 			},
 			width: function () {
 				return this.elements[0].offsetWidth;
@@ -484,11 +489,10 @@ jClass.__class.prototype = {
 			},
 			/* 淡入淡出 */
 			fade: function (nValue, fFn) {
-				var _this = this;
 				nValue = nValue || 0;
 
 				__fAllElementsOpa(this.elements, function () {
-					var $This = __fExtend(_this, {elements: [this]});
+					var $This = _jClass(this);
 					var nStart = $This.css('opacity') * 100;
 					nStart = isNaN(nStart) ? 100 : nStart;
 					(function () {
@@ -518,19 +522,41 @@ jClass.__class.prototype = {
 						}
 					})();
 				});
+				return this;
 			},
 			show: function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.style.display = 'block';
 				});
+				return this;
 			},
 			hide: function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.style.display = 'none';
 				});
+				return this;
 			}
 		};
+		// 填充数据
+		this.merge(aElem);
+		// 添加数据对象的内置方法
+		__proto__.prototype = __extend__(__proto__.prototype, oJC);
+	};
+	/* 将选择器结果填充至数据对象,数据对象是以原生数组对象为原型基础 */
+	__proto__.prototype.merge = function (aEl) {
+		for (var i = 0; i < aEl.length; i++) {
+			this.push(aEl[i]);
+		}
+		this.elements = aEl;
+	};
 
-		return __fExtend(oSelector, JC.$.prototype);
+	/* 类原型 */
+	function __class__() {
+		return function () {
+			return new __proto__(Array.prototype.slice.call(arguments, 0));
+		};
 	}
-};
+
+	window.jClass = new __class__();
+	jClass.fx = __proto__;
+})();
