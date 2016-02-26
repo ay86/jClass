@@ -1,7 +1,7 @@
 /**
  * @Author Angus <angusyoung@mrxcool.com>
- * @Description jClass选择器原型方法
- * @Dependent jClass.js, jClass-util.js
+ * @Description jClass选择器扩展方法
+ * @Dependent jClass.js
  * @Since 16/2/22
  */
 
@@ -9,8 +9,219 @@
 	if (!$) {
 		return;
 	}
+	$.on = function (sEvent, sSelector, fFn) {
+		if (typeof sSelector === 'function') {
+			fFn = sSelector;
+			sSelector = null;
+		}
+		this.each(function () {
+			var _this = this;
+			jClass.addEvent(_this, sEvent, function () {
+				if (sSelector) {
+					var oEv = arguments[arguments.length - 1] || window.event;
+					var $Child = jClass(sSelector, _this);
+					var bHas = false;
+					for (var i = 0; i < $Child.length; i++) {
+						if ($Child[i] === oEv.target) {
+							bHas = true;
+							break;
+						}
+					}
+					bHas && fFn.call(oEv.target);
+				}
+				else {
+					fFn.call(_this);
+				}
+			});
+		});
+	};
+	/* 淡入淡出 */
+	$.fade = function (nValue, fFn) {
+		nValue = nValue || 0;
+		for (var i = 0; i < this.length; i++) {
+			(function () {
+				var $This = jClass(this);
+				var nStart = $This.css('opacity') * 100;
+				nStart = isNaN(nStart) ? 100 : nStart;
+				(function () {
+					var __call = arguments.callee;
+
+					function __fSet() {
+						if (nStart > nValue) {
+							nStart -= 1;
+						}
+						else {
+							nStart += 1;
+						}
+						$This.alpha(nStart);
+						if (nStart === nValue) {
+							typeof fFn === 'function' && fFn.call($This.elements[0]);
+						}
+						else {
+							__call();
+						}
+					}
+
+					if (typeof window.requestAnimationFrame === 'function') {
+						requestAnimationFrame(__fSet);
+					}
+					else {
+						setTimeout(__fSet, 17);
+					}
+				})();
+			}).call(this.elements[i]);
+		}
+		return this;
+	};
+	/* 震动 */
+	$.shake = function (nRepeat, aCord, nSpeed) {
+		var fFn = arguments[arguments.length - 1];
+		if (arguments.length === 2 && typeof fFn === 'function') {
+			nRepeat = null;
+			aCord = null;
+			nSpeed = null;
+		}
+		else {
+			if (nRepeat instanceof Array) {
+				nSpeed = aCord;
+				aCord = nRepeat;
+				nRepeat = null;
+			}
+			if (typeof aCord === 'function') {
+				aCord = null;
+				nSpeed = null;
+			}
+			else if (typeof aCord === 'number') {
+				nSpeed = aCord;
+				aCord = null;
+			}
+			if (typeof nSpeed === 'function') {
+				nSpeed = null;
+			}
+		}
+
+		nSpeed = nSpeed || 16;
+		aCord = aCord || [[0, 6], [6, 0], [0, -6], [-6, 0]];
+		nRepeat = nRepeat || 1;
+
+		this.each(function () {
+			var oObj = this;
+			var j = 0;
+			var i = 0;
+			(function () {
+				if (j >= nRepeat) {
+					typeof fFn === 'function' && fFn();
+					return;
+				}
+				var _call = arguments.callee;
+
+				function __fRun() {
+					var aOffset = aCord[i];
+					var nObjLeft = oObj.offsetLeft;
+					var nObjTop = oObj.offsetTop;
+					oObj.style.left = nObjLeft + aOffset[0] + 'px';
+					oObj.style.top = nObjTop + aOffset[1] + 'px';
+					i++;
+					if (i >= aCord.length) {
+						j++;
+						i = 0;
+					}
+					_call();
+				}
+
+				if (typeof window.requestAnimationFrame === 'function' && nSpeed < 17) {
+					requestAnimationFrame(__fRun);
+				}
+				else {
+					setTimeout(__fRun, nSpeed);
+				}
+			})();
+		});
+	};
+	/* 形状动画 */
+	$.animateShape = function (sProp, sValue, nSec, fFn) {
+		if (!sProp || typeof sValue === 'undefined') {
+			return;
+		}
+		if (typeof nSec === 'function') {
+			fFn = nSec;
+			nSec = null;
+		}
+		var _strProp = (function () {
+			if (sProp.indexOf('.') > -1) {
+				return sProp.split('.');
+			}
+			return false;
+		})();
+
+		nSec = nSec || .3;
+
+		this.each(function () {
+			var oObj = this;
+			var $Obj = jClass(this);
+			// 取得当前值
+			var nCurrent;
+			if (_strProp) {
+				// 只支持二级
+				nCurrent = $Obj.css(_strProp[1]);
+			}
+			else {
+				nCurrent = oObj[sProp];
+			}
+			// 得到终点值
+			var nValue = parseInt(sValue, 10);
+			if (isNaN(nValue)) {
+				return;
+			}
+			// 得到单位
+			var sUnit = sValue.toString().replace(nValue.toString(), '');
+			// 单次的间隔时间
+			var nDelay = 20;
+			// 计算时间内的步数
+			var nStep = Math.abs(nValue - nCurrent) / (nSec * 1000 / (nDelay + 3.4));
+
+			(function (bUp) {
+				var _call = arguments.callee;
+				setTimeout(function () {
+					var _current, _count = 0;
+
+					function __fV(n) {
+						if (bUp) {
+							_count = n + nStep;
+							if (_count > nValue) {
+								_count = nValue;
+							}
+						}
+						else {
+							_count = n - nStep;
+							if (_count < nValue) {
+								_count = nValue;
+							}
+						}
+						return _count + sUnit;
+					}
+
+					if (_strProp) {
+						_current = $Obj.css(_strProp[1]);
+						oObj[_strProp[0]][_strProp[1]] = __fV(_current);
+					}
+					else {
+						_current = oObj[sProp];
+						oObj[sProp] = __fV(_current);
+					}
+
+					if (_count === nValue) {
+						typeof fFn === 'function' && fFn();
+					}
+					else {
+						_call(bUp);
+					}
+				}, nDelay);
+			})(nValue > nCurrent);
+		});
+	};
 	/* 获取对象的信息 */
-	$.prototype.get = function () {
+	$.get = function () {
 		var oObj = this.elements[0];
 		var oDoc = typeof document.body.style.webkitTransition !== 'undefined' ? document.body : document.documentElement;
 		var oDomRect = document.documentElement.getBoundingClientRect();
@@ -57,17 +268,36 @@
 			})()
 		};
 	};
-
-	$.prototype.checkBox = function (sDir) {
-		var $Input = $.selector('input[type="checkbox"]', this);
+	/* 将表单的数据序列化 */
+	$.serialize = function () {
+		var $Input = jClass('input', this);
+		var aSerialize = [];
+		$Input.each(function () {
+			if (this.disabled) {
+				return;
+			}
+			if (this.type === 'radio' || this.type === 'checkbox') {
+				if (this.checked) {
+					aSerialize.push(encodeURIComponent(this.name) + '=' + encodeURIComponent(this.value));
+				}
+			}
+			else {
+				aSerialize.push(encodeURIComponent(this.name) + '=' + encodeURIComponent(this.value));
+			}
+		});
+		return aSerialize.join('&');
+	};
+	/* 选择框选择动作 */
+	$.checkBox = function (sDir) {
+		var $Input = jClass('input[type="checkbox"]', this);
 		switch (sDir) {
 			case 'all':
-				this.each(function () {
+				$Input.each(function () {
 					this.checked = 'checked';
 				});
 				break;
 			case'other':
-				this.each(function () {
+				$Input.each(function () {
 					if (this.checked) {
 						this.checked = null;
 					}
@@ -77,10 +307,10 @@
 				});
 				break;
 			case 'not':
-				this.each(function () {
+				$Input.each(function () {
 					this.checked = null;
 				});
 				break;
 		}
 	};
-})(jClass.$);
+})(jClass.fx);
