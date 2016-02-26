@@ -95,7 +95,7 @@
 						}
 						break;
 					case '.': // className
-						if (!__fInArray(oObj.getAttribute('class').split(' '), sCondition)) {
+						if (!__fInArray(oObj.getAttribute('class') ? oObj.getAttribute('class').split(' ') : [], sCondition)) {
 							return false;
 						}
 						break;
@@ -105,7 +105,7 @@
 						}
 						break;
 					case '[': // property
-						var aProp = sCondition.substring(0, sCondition.length - 1).split('=');
+						var aProp = sCondition.substring(0, sCondition.length - 1).replace(/['"]/g, '').split('=');
 						if (aProp.length === 2) {
 							if (oObj.getAttribute(aProp[0]) !== aProp[1]) {
 								return false;
@@ -175,7 +175,8 @@
 					var sProp;
 					if (aProp.length === 2) {
 						sProp = aProp[0];
-						sVal = aProp[1];
+						sVal = aProp[1].replace(/^(['|"]*)([^'"]*)\1$/, '$2');
+						console.info(sVal)
 					}
 					for (i = 0; i < oObj.length; i++) {
 						if (sProp) {
@@ -487,43 +488,6 @@
 				});
 				return this;
 			},
-			/* 淡入淡出 */
-			fade: function (nValue, fFn) {
-				nValue = nValue || 0;
-
-				__fAllElementsOpa(this.elements, function () {
-					var $This = _jClass(this);
-					var nStart = $This.css('opacity') * 100;
-					nStart = isNaN(nStart) ? 100 : nStart;
-					(function () {
-						var __call = arguments.callee;
-
-						function __fSet() {
-							if (nStart > nValue) {
-								nStart -= 1;
-							}
-							else {
-								nStart += 1;
-							}
-							$This.alpha(nStart);
-							if (nStart === nValue) {
-								typeof fFn === 'function' && fFn.call($This.elements[0]);
-							}
-							else {
-								__call();
-							}
-						}
-
-						if (typeof window.requestAnimationFrame === 'function') {
-							requestAnimationFrame(__fSet);
-						}
-						else {
-							setTimeout(__fSet, 17);
-						}
-					})();
-				});
-				return this;
-			},
 			show: function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.style.display = 'block';
@@ -558,5 +522,10 @@
 	}
 
 	window.jClass = new __class__();
-	jClass.fx = __proto__;
+	// 输出数据对象类供扩展
+	jClass.fx = __proto__.prototype;
+	// 输出类原型供扩展
+	jClass.fn = __class__.prototype;
+	// 将继承方法写入类
+	jClass.fn.extend = __extend__;
 })();
