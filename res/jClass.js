@@ -284,17 +284,24 @@
 				return this;
 			},
 			attr: function (sAttr, sAttrVal) {
-				var aAttr = [];
-				__fAllElementsOpa(this.elements, function () {
-					if (sAttrVal) {
+				if (sAttrVal) {
+					__fAllElementsOpa(this.elements, function () {
 						this.setAttribute(sAttr, sAttrVal);
-					}
-					else {
-						aAttr.push(this.getAttribute(sAttr));
-					}
-				});
-				if (!sAttrVal) {
-					return aAttr[0];
+					});
+				}
+				else {
+					return this.elements[0].getAttribute(sAttr);
+				}
+				return this;
+			},
+			data: function (sName, sValue) {
+				if (sValue) {
+					__fAllElementsOpa(this.elements, function () {
+						this.dataset[sName] = sValue;
+					});
+				}
+				else {
+					return this.elements[0].dataset[sName];
 				}
 				return this;
 			},
