@@ -17,8 +17,9 @@
 		this.each(function () {
 			var _this = this;
 			jClass.addEvent(_this, sEvent, function () {
+				var oEv = arguments[arguments.length - 1] || window.event;
+				var _stopBubble;
 				if (sSelector) {
-					var oEv = arguments[arguments.length - 1] || window.event;
 					var $Child = jClass(sSelector, _this);
 					var bHas = false;
 					for (var i = 0; i < $Child.length; i++) {
@@ -27,10 +28,28 @@
 							break;
 						}
 					}
-					bHas && fFn.call(oEv.target);
+					if (bHas) {
+						_stopBubble = fFn.call(oEv.target, oEv);
+					}
 				}
 				else {
-					fFn.call(_this);
+					_stopBubble = fFn.call(_this, oEv);
+				}
+				// 从callback返回值中判断是否需要阻步冒泡
+				if (typeof _stopBubble === 'boolean') {
+					_stopBubble = !_stopBubble;
+				}
+				else {
+					_stopBubble = false;
+				}
+				// 阻止冒泡
+				if (_stopBubble) {
+					if (oEv.stopPropagation) {
+						oEv.stopPropagation();
+					}
+					else {
+						oEv.cancelBubble = true;
+					}
 				}
 			});
 		});
@@ -270,10 +289,14 @@
 	};
 	/* 将表单的数据序列化 */
 	$.serialize = function () {
-		var $Input = jClass('input', this);
 		var aSerialize = [];
-		$Input.each(function () {
-			if (this.disabled) {
+		var $Item;
+		if (!this[0].elements) {
+			return;
+		}
+		$Item = jClass(this[0].elements);
+		$Item.each(function () {
+			if (this.disabled || this.tagName === 'button' || this.type === 'button') {
 				return;
 			}
 			if (this.type === 'radio' || this.type === 'checkbox') {
@@ -282,7 +305,9 @@
 				}
 			}
 			else {
-				aSerialize.push(encodeURIComponent(this.name) + '=' + encodeURIComponent(this.value));
+				if (this.value) {
+					aSerialize.push(encodeURIComponent(this.name) + '=' + encodeURIComponent(this.value));
+				}
 			}
 		});
 		return aSerialize.join('&');
