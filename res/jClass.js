@@ -220,8 +220,16 @@
 			if (!sExpr) {
 				return [];
 			}
-			if (typeof sExpr === 'object' && sExpr.ownerDocument) {
-				return [sExpr];
+			if (typeof sExpr === 'object') {
+				if (sExpr.ownerDocument) {
+					return [sExpr];
+				}
+				else if (sExpr.length && sExpr[0].ownerDocument) {
+					return Array.prototype.slice.call(sExpr, 0);
+				}
+				else {
+					return [];
+				}
 			}
 			if (sExpr.substr(0, 1) === '<') {
 				return __fSingle(sExpr);
