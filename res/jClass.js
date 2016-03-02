@@ -1,5 +1,7 @@
 /*
- jClass 源文件
+ * @Author Angus <angusyoung@mrxcool.com>
+ * @Description jClass源文件
+ * @Since 13/2/28
  */
 (function () {
 	/* 类继承 */
