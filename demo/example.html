@@ -4,10 +4,7 @@
 	<meta charset="UTF-8">
 	<title>jClass.js 效果应用全例</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script type="text/javascript" src="../res/jClass.js"></script>
-	<script type="text/javascript" src="../res/jClass-prototype.js"></script>
-	<script type="text/javascript" src="../res/jClass-extend.js"></script>
-	<script type="text/javascript" src="../res/jClass-ajax.js"></script>
+	<script src="../release/jClass-1.0.4.js"></script>
 	<style type="text/css">
 		.example {
 			margin-bottom: 50px;
@@ -103,10 +100,8 @@
 		<button type="button" class="btn btn-default" data-cmd="4">$(li).length</button>
 		<button type="button" class="btn btn-default" data-cmd="5">$('#chkb input').length</button>
 		<button type="button" class="btn btn-default" data-cmd="6">$('#chkb input').eq(1).val()</button>
-		<button type="button" class="btn btn-default" data-cmd="7"> $('@checkbox_1').length; $('#chkb
-			@checkbox_1').length
-		</button>
-		<button type="button" class="btn btn-default" data-cmd="8">$('input' , $('.www').eq(1)).length</button>
+		<button type="button" class="btn btn-default" data-cmd="7">$('@checkbox_1').length; $('#chkb @checkbox_1').length</button>
+		<button type="button" class="btn btn-default" data-cmd="8">$('input', $('.www').eq(1)).length</button>
 		<button type="button" class="btn btn-default" data-cmd="9">$('#hwe .www label @wer').last().val()</button>
 	</div>
 
@@ -370,7 +365,7 @@ Just one smile from you, Would make my whole world bright</textarea>
 			<ul>
 				<li>
 					事件绑定 - <code>$(selector).on(event, [selector, function])</code>
-					<p class="text-warning">* 需要扩展方法<code>addEvent</code>支持</p>
+					<p class="text-warning">*需要扩展方法<code>addEvent</code>支持</p>
 				</li>
 				<li>
 					链式引用 - <code>$(selector).html(...).show()</code>
