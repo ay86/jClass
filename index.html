@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>jClass by ay86</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>jClass</h1>
+        <h2>jClass 一个小巧的javascript方法类库</h2>
+        <a href="https://github.com/ay86/jClass" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="jclass" class="anchor" href="#jclass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>jClass</h1>
+
+<pre><code>一个小巧的javascript方法类库，并且提供部分动画交互效果。
+</code></pre>
+
+<h2>
+<a id="selector" class="anchor" href="#selector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Selector</h2>
+
+<pre><code>DOM选择器
+@param sExpression {String || Object} DOM对象或者表达式字符串，支持一般的类型查找
+@param oScopeDOM {Object} DOM对象，做为查找对象的父级元素
+@returns {Object} 返回一个查找结果集以及相关的方法
+</code></pre>
+
+<p>使用方法与jQuery的基本一致，但只提供部分API。
+支持<code>tagName</code>, <code>className</code>, <code>name</code>, <code>id</code>, <code>attribute</code>, <code>string</code> 等方式选择或创建DOM对象。
+支持链式表达，暂不支持只对子级进行查找模式（<code>div &gt; p</code>）<em>默认子孙级都查找</em>，查找<code>name</code>时请使用识别码<code>@</code>，比如：<code>@username</code>。</p>
+
+<ul>
+<li>
+<code>each()</code> 遍历结果</li>
+<li>
+<code>addClass()</code> 添加样式</li>
+<li>
+<code>removeClass()</code> 删除样式</li>
+<li>
+<code>data()</code> DataSet</li>
+<li>
+<code>attr()</code> 属性</li>
+<li>
+<code>removeAttr()</code> 删除属性</li>
+<li>
+<code>remove()</code> 移除元素</li>
+<li>
+<code>after()</code> 之后添加</li>
+<li>
+<code>before()</code> 之前添加</li>
+<li>
+<code>append()</code> 内部添加</li>
+<li>
+<code>clone()</code> 克隆</li>
+<li>
+<code>html()</code> 内部HTML</li>
+<li>
+<code>outerHtml()</code> 外部HTML</li>
+<li>
+<code>val()</code> 值</li>
+<li>
+<code>eq()</code> 索引</li>
+<li>
+<code>first()</code> 第一个</li>
+<li>
+<code>last()</code> 最后一个</li>
+<li>
+<code>prev()</code> 前一个</li>
+<li>
+<code>next()</code> 下一个</li>
+<li>
+<code>css()</code> CSS属性</li>
+<li>
+<code>width()</code> 宽度</li>
+<li>
+<code>height()</code> 高度</li>
+<li>
+<code>innerWidth()</code> 内部宽度</li>
+<li>
+<code>innerHeight()</code> 内部高度</li>
+<li>
+<code>alpha()</code> 透明度</li>
+<li>
+<code>show()</code> 显示</li>
+<li>
+<code>hide()</code> 隐藏</li>
+</ul>
+
+<hr>
+
+<ul>
+<li>
+<code>on()</code> 事件绑定</li>
+<li>
+<code>fade()</code> 淡入淡出</li>
+<li>
+<code>shake()</code> 震动</li>
+<li>
+<code>animateShape()</code> 形状动画</li>
+<li>
+<code>get()</code> 坐标值top, left, right, bottom</li>
+<li>
+<code>serialize()</code> 序例化表单数据</li>
+<li>
+<code>checkbox()</code> 选项框操作</li>
+</ul>
+
+<p>以上API的使用与jQuery的使用基本一致，支持链式操作。部分如<code>outerHtml()</code>; <code>alpha()</code>等是jClass自有的API。</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> $ <span class="pl-k">=</span> jClass;
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#open<span class="pl-pds">'</span></span>).<span class="pl-en">append</span>(<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>div p.test<span class="pl-pds">'</span></span>).<span class="pl-en">clone</span>().<span class="pl-en">attr</span>(<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>this is clone.<span class="pl-pds">'</span></span>));</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>).<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+    <span class="pl-en">$</span>(<span class="pl-v">this</span>).<span class="pl-en">shake</span>(<span class="pl-c1">3</span>); <span class="pl-c">// 重复3次的默认偏移震动</span>
+    <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+});</pre></div>
+
+<h2>
+<a id="extend" class="anchor" href="#extend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extend</h2>
+
+<pre><code>扩展方法
+</code></pre>
+
+<p>jClass提供扩展方法用于一些日常的效果实现</p>
+
+<ul>
+<li>
+<code>load()</code> 页面内容加载完成</li>
+<li>
+<code>domReady()</code> 页面结构加载完成</li>
+<li>
+<code>addEvent()</code> 添加事件</li>
+<li>
+<code>delEvent()</code> 移除事件</li>
+<li>
+<code>isWho()</code> 浏览器检测</li>
+<li>
+<code>colorToRgb()</code> RGB颜色值</li>
+<li>
+<code>colorToHex()</code> 十六进制颜色值</li>
+<li>
+<code>listMove()</code> 多选下拉项转换</li>
+<li>
+<code>getHTML()</code> HTML文本内某节点的HTML</li>
+<li>
+<code>cookie</code> Cookies</li>
+<li>
+<code>stopBubble()</code> 阻止冒泡</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$</span>.<span class="pl-c1">load</span>(<span class="pl-k">function</span>(){
+    <span class="pl-k">if</span> (<span class="pl-smi">$</span>.<span class="pl-en">isWho</span>(<span class="pl-s"><span class="pl-pds">'</span>ie<span class="pl-pds">'</span></span>)) {
+        <span class="pl-smi">$</span>.<span class="pl-c1">cookie</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>isIE<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>, <span class="pl-c1">30</span>);
+    }
+});</pre></div>
+
+<h2>
+<a id="ajax" class="anchor" href="#ajax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ajax</h2>
+
+<pre><code>AJAX请求
+@param jConfig {Object} 请求的参数配置
+@returns {XMLHttpRequest} 返回XHR对象
+</code></pre>
+
+<p>方法执行后返回XHR对象，可将此对象赋值给变量后，执行<code>abort()</code>操作。
+本方法提供AJAX重发功能，可在触发<code>error</code>回调时执行<code>retry()</code>方法，重新执行AJAX请求，重试次数由配置<code>retryCount</code>指定，默认为3次。
+<strong>注意本方法只提供<code>success</code>, <code>error</code>的回调，与jQuery支持的回调方法略有不同，并且不支持<code>$.get()</code>, <code>$.post()</code>等方法。</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> xhr <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">ajax</span>({
+    url<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://www.simple.com/simple.php<span class="pl-pds">'</span></span>,
+    type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>POST<span class="pl-pds">'</span></span>,
+    dataType<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>JSON<span class="pl-pds">'</span></span>,
+    data<span class="pl-k">:</span> {
+        user<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Angus<span class="pl-pds">'</span></span>,
+        age<span class="pl-k">:</span> <span class="pl-c1">28</span>,
+        list<span class="pl-k">:</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>]
+    },
+    <span class="pl-en">success</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">jData</span>, <span class="pl-smi">xhr</span>){
+        <span class="pl-c">// success callback</span>
+        <span class="pl-c">// this === jConfig</span>
+    },
+    <span class="pl-en">error</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">nStatus</span>) {
+        <span class="pl-c">// error callback</span>
+        <span class="pl-c">// this.retry();</span>
+    }
+});</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/ay86/jClass/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/ay86/jClass/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/ay86/jClass"></a> is maintained by <a href="https://github.com/ay86">ay86</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
