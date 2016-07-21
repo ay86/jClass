@@ -22,9 +22,9 @@ jClass
 - `removeAttr()` 删除属性
 - `remove()` 移除元素
 - `after()` 在之后添加
-- `before()` 在之前添加
 - `afterTo()` 添加到之后
-- `before()` 添加到之前
+- `before()` 在之前添加
+- `beforeTo()` 添加到之前
 - `append()` 内部添加子元素
 - `appendTo()` 作为子元素添加到
 - `clone()` 克隆
