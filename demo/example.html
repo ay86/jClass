@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>jClass.js 效果应用全例</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="../release/jClass-1.0.4.js"></script>
+	<script src="../release/jClass-1.0.5.js"></script>
 	<style type="text/css">
 		.example {
 			margin-bottom: 50px;
@@ -124,8 +124,14 @@
 				<li>
 					索引查找 - <code>$(selector).eq(0)</code>
 				</li>
+				<!--<li>-->
+					<!--子元素查找 - <code>$(selector).children(selector)</code>-->
+				<!--</li>-->
 				<li>
-					遍历 - <code>$(selector).each(function)</code>
+					下级元素查找 - <code>$(selector).find(selector)</code>
+				</li>
+				<li>
+					遍历 - <code>$(selector).each(function(index){})</code>
 					<p class="text-info">function的第一个参数为遍历的索引值</p>
 				</li>
 			</ul>
@@ -148,6 +154,7 @@
 		<button type="button" class="btn btn-default" data-cmd="4">$('button').last()</button>
 		<button type="button" class="btn btn-default" data-cmd="5">$('button').eq(2)</button>
 		<button type="button" class="btn btn-default" data-cmd="6">$('button').each(...)</button>
+		<button type="button" class="btn btn-default" data-cmd="7">$('#relate').find('li.on')</button>
 	</div>
 
 	<div class="panel panel-primary">
@@ -161,6 +168,9 @@
 					移除样式 - <code>$(selector).removeClass(className)</code>
 				</li>
 				<li>
+					是否包含Class - <code>$(selector).has(className)</code>
+				</li>
+				<li>
 					属性操作 - <code>$(selector).attr(name, [value])</code>
 				</li>
 				<li>
@@ -170,10 +180,19 @@
 					添加子元素 - <code>$(selector).append()</code>
 				</li>
 				<li>
-					之后添加 - <code>$(selector).after()</code>
+					作为子元素添加 - <code>$(selector).appendTo()</code>
 				</li>
 				<li>
-					之前添加 - <code>$(selector).before()</code>
+					在之后添加 - <code>$(selector).after()</code>
+				</li>
+				<li>
+					在之前添加 - <code>$(selector).before()</code>
+				</li>
+				<li>
+					添加到之后 - <code>$(selector).afterTo()</code>
+				</li>
+				<li>
+					添加到之前 - <code>$(selector).beforeTo()</code>
 				</li>
 				<li>
 					拷贝元素 - <code>$(selector).clone()</code>
@@ -185,7 +204,7 @@
 					透明度设置 - <code>$(selector).alpha(value)</code>
 				</li>
 				<li>
-					css样式值 - <code>$(selector).css(attribute)</code>
+					css样式值 - <code>$(selector).css(object || attribute, [value])</code>
 				</li>
 				<li>
 					DataSet - <code>$(selector).data(name, [value])</code>
@@ -422,7 +441,7 @@ $('ul#abc').on('click', 'li.on', function () {
 					多选下拉框选项转移 - <code>$.listMove(select1, select2)</code>
 				</li>
 				<li>
-					获取一段HTML里的某个节点HTML - <code>$.getHTML(html, selector)</code>
+					获取一段HTML里某个节点的HTML - <code>$.getHTML(html, selector)</code>
 				</li>
 				<li>
 					Cookies操作 - <code>$.cookie</code>

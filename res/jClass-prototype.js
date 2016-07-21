@@ -42,8 +42,9 @@
 				else {
 					_stopBubble = false;
 				}
-				// 阻止冒泡
+				// 阻止冒泡及默认行为
 				if (_stopBubble) {
+					oEv.preventDefault();
 					if (oEv.stopPropagation) {
 						oEv.stopPropagation();
 					}
@@ -55,8 +56,13 @@
 		});
 	};
 	/* 淡入淡出 */
-	$.fade = function (nValue, fFn) {
+	$.fade = function (nValue, nStep, fFn) {
 		nValue = nValue || 0;
+		nStep = nStep || 1;
+		if (typeof nStep === 'function') {
+			fFn = nStep;
+			nStep = 1;
+		}
 		for (var i = 0; i < this.length; i++) {
 			(function () {
 				var $This = jClass(this);
@@ -67,10 +73,10 @@
 
 					function __fSet() {
 						if (nStart > nValue) {
-							nStart -= 1;
+							nStart -= nStep;
 						}
 						else {
-							nStart += 1;
+							nStart += nStep;
 						}
 						$This.alpha(nStart);
 						if (nStart === nValue) {
@@ -238,6 +244,7 @@
 				}, nDelay);
 			})(nValue > nCurrent);
 		});
+		return this;
 	};
 	/* 获取对象的信息 */
 	$.get = function () {

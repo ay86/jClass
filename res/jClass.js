@@ -154,7 +154,7 @@
 					break;
 				case '.': // Class name
 					if (document.getElementsByClassName) {
-						oObj = document.getElementsByClassName(sVal);
+						oObj = oScope.getElementsByClassName(sVal);
 						oObj && (aGet = Array.prototype.slice.call(oObj, 0));
 					}
 					else {
@@ -338,6 +338,11 @@
 				}
 				return this;
 			},
+			has: function (sClassName) {
+				var oObj = this.elements[0];
+				var sClass = ' ' + oObj.getAttribute('class') + ' ';
+				return !!~sClass.indexOf(' ' + sClassName + ' ');
+			},
 			append: function (oObj) {
 				var _parent = this.elements[0];
 				if (typeof oObj === 'string') {
@@ -353,6 +358,24 @@
 						});
 					}
 				}
+				return this;
+			},
+			appendTo: function (oObj) {
+				if (typeof oObj === 'string') {
+					oObj = __fGet(oObj)[0];
+				}
+				var _parent;
+				if (oObj.ownerDocument) {
+					_parent = oObj;
+				}
+				else {
+					if (oObj.version) {
+						_parent = oObj.elements[0];
+					}
+				}
+				__fAllElementsOpa(this.elements, function () {
+					_parent.appendChild(this);
+				});
 				return this;
 			},
 			before: function (oObj) {
@@ -372,6 +395,24 @@
 				}
 				return this;
 			},
+			beforeTo: function (oObj) {
+				if (typeof oObj === 'string') {
+					oObj = __fGet(oObj)[0];
+				}
+				if (oObj.ownerDocument) {
+					__fAllElementsOpa(this.elements, function () {
+						oObj.parentNode.insertBefore(this, oObj);
+					});
+				}
+				else {
+					if (oObj.version) {
+						__fAllElementsOpa(this.elements, function () {
+							var _to = oObj.elements[0];
+							_to.parentNode.insertBefore(this, _to);
+						});
+					}
+				}
+			},
 			after: function (oObj) {
 				var _current = this.elements[0];
 				if (typeof oObj === 'string') {
@@ -381,13 +422,31 @@
 					_current.parentNode.insertBefore(oObj, _current.nextSibling);
 				}
 				else {
-					if (oObj.ver) {
+					if (oObj.version) {
 						__fAllElementsOpa(oObj.elements, function () {
 							_current.parentNode.insertBefore(this, _current.nextSibling);
 						});
 					}
 				}
 				return this;
+			},
+			afterTo: function (oObj) {
+				if (typeof oObj === 'string') {
+					oObj = __fGet(oObj)[0];
+				}
+				if (oObj.ownerDocument) {
+					__fAllElementsOpa(this.elements, function () {
+						oObj.parentNode.insertBefore(this, oObj.nextSibling);
+					});
+				}
+				else {
+					if (oObj.version) {
+						__fAllElementsOpa(this.elements, function () {
+							var _to = oObj.elements[0];
+							_to.parentNode.insertBefore(this, _to.nextSibling);
+						});
+					}
+				}
 			},
 			clone: function (bDeep) {
 				var _obj = __extend__({}, this);
@@ -442,10 +501,36 @@
 					return _jClass(oObj);
 				}
 			},
-			css: function (sProp) {
+			// children: function (sSelector) {
+			// 	var oObj = this.elements[0];
+			// 	return _jClass(sSelector, oObj);
+			// },
+			find: function (sSelector) {
 				var oObj = this.elements[0];
-				var AttValue = oObj.currentStyle ? oObj.currentStyle[sProp] : document.defaultView.getComputedStyle(oObj, null)[sProp];
-				return isNaN(parseFloat(AttValue)) ? AttValue.toLowerCase() : parseFloat(AttValue);
+				return _jClass(sSelector, oObj);
+			},
+			css: function (sProp, sValue) {
+				var oObj = this.elements[0];
+				if (typeof sProp === 'string') {
+					if (sValue) {
+						oObj.style[sProp] = sValue;
+						return this;
+					}
+					else {
+						var AttValue = oObj.currentStyle ? oObj.currentStyle[sProp] : document.defaultView.getComputedStyle(oObj, null)[sProp];
+						return isNaN(parseFloat(AttValue)) ? AttValue.toLowerCase() : parseFloat(AttValue);
+					}
+				}
+				else if (typeof sProp === 'object') {
+					var sCssText = oObj.style.cssText;
+					for (var v in sProp) {
+						if (sProp.hasOwnProperty(v)) {
+							sCssText += ';' + v + ':' + sProp[v];
+						}
+					}
+					oObj.style.cssText = sCssText;
+					return this;
+				}
 			},
 			width: function () {
 				return this.elements[0].offsetWidth;

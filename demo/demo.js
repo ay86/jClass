@@ -63,6 +63,9 @@ $('#relate').on('click', 'button', function () {
 				alert('第' + (nIndex + 1) + '个按钮: ' + this.outerHTML);
 			});
 			break;
+		case 7:
+			alert($('#relate').find('li.on').outerHtml());
+			break;
 	}
 });
 
