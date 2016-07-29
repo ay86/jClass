@@ -338,7 +338,7 @@
 				}
 				return this;
 			},
-			has: function (sClassName) {
+			hasClass: function (sClassName) {
 				var oObj = this.elements[0];
 				var sClass = ' ' + oObj.getAttribute('class') + ' ';
 				return !!~sClass.indexOf(' ' + sClassName + ' ');

@@ -16,7 +16,7 @@ jClass
 - `each()` 遍历结果
 - `addClass()` 添加样式
 - `removeClass()` 删除样式
-- `has()` 包含样式
+- `hasClass()` 包含样式
 - `data()` DataSet
 - `attr()` 属性
 - `removeAttr()` 删除属性
