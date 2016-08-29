@@ -77,7 +77,7 @@
 					aQuery.push('_=' + Math.random());
 				}
 				if (aQuery.length) {
-					jConfig['url'] += '?' + aQuery.join('&');
+					jConfig['url'] += (!!~jConfig['url'].indexOf('?') ? '&' : '?') + aQuery.join('&');
 				}
 				xhr.open(jConfig['type'], jConfig['url'], jConfig['async']);
 				if (jConfig['type'] === 'POST') {
