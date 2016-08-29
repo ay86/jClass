@@ -2,36 +2,40 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<title>jClass.js 效果应用全例</title>
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="../release/jClass-1.0.5.js"></script>
+	<title>jClass.js 应用全例</title>
+	<link rel="stylesheet" href="//static.omooer.com/saui/css/sa.min.css">
+	<script src="../release/jClass-1.0.6.js"></script>
+	<!--<script src="../res/jClass.js"></script>-->
+	<!--<script src="../res/jClass-prototype.js"></script>-->
+	<!--<script src="../res/jClass-extend.js"></script>-->
+	<!--<script src="../res/jClass-ajax.js"></script>-->
 	<style type="text/css">
+		.container {
+			padding: 0 .20rem;
+		}
+
+		.jumbotron {
+			margin: .20rem 0;
+			padding: .30rem;
+		}
+
 		.example {
-			margin-bottom: 50px;
-			padding: 10px;
+			margin: .10rem 0 .50rem;
+			padding: .10rem;
 			background-color: #f7f7f7;;
 			border: #ccc solid 1px;
-			border-radius: 10px;
+			border-radius: 0.04rem;
 		}
 
 		.example:before {
 			content: '示例：';
 			display: block;
-			margin-bottom: 10px;
+			margin-bottom: .10rem;
 			font-weight: bold;
 		}
 
 		.example .btn {
-			margin: 5px;
-		}
-
-		select {
-			width: 100px;
-		}
-
-		pre {
-			background-color: #fefefe;
-			color: #d44950;
+			/*margin: 5px;*/
 		}
 
 		.on {
@@ -49,21 +53,23 @@
 </head>
 
 <body>
-<div class="container-fluid">
+<div class="container">
 	<div class="page-header">
-		<h1>jClass.js示例
-			<small>基于jClass 1.0.4版本</small>
+		<h1>jClass.js 示例
+			<small>基于 jClass 1.0.6 版本</small>
 		</h1>
 	</div>
-	<div class="jumbotron">
-		<h1>jClass.js</h1>
-		<p>一个javascript类库，提供基本的选择器以及若干方法，可以把她理解成jQuery，部分api使用方式也一致。</p>
-		<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+	<div class="jumbotron card bg-default">
+		<div class="card-body">
+			<h1>jClass.js</h1>
+			<p>一个 javascript 类库，提供基本的选择器以及若干方法，可以把她理解成 jQuery，部分 api 使用方式也一致。</p>
+			<p><a class="btn btn-primary btn-lg" href="http://ay86.github.io/jClass/" role="button">Learn more</a></p>
+		</div>
 	</div>
 
-	<div class="panel panel-primary">
-		<div class="panel-heading">选择器</div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-head">选择器</div>
+		<div class="card-body">
 			<ul>
 				<li>
 					标签选择器 - <code>$('body')</code>
@@ -90,8 +96,8 @@
 					创建对象选择器 - <code>$('&lt;div&gt;create div&lt;/div&gt;')</code>
 				</li>
 			</ul>
-			<p class="text-warning">注意：IE里会将NAME和ID等同化！</p>
 		</div>
+		<div class="card-foot">注意：IE里会将NAME和ID等同化！</div>
 	</div>
 	<div id="selector" class="example">
 		<button type="button" class="btn btn-default" data-cmd="1">$('#chkb').html()</button>
@@ -105,9 +111,9 @@
 		<button type="button" class="btn btn-default" data-cmd="9">$('#hwe .www label @wer').last().val()</button>
 	</div>
 
-	<div class="panel panel-primary">
-		<div class="panel-heading">对象查找</div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-head">对象查找</div>
+		<div class="card-body">
 			<ul>
 				<li>
 					前一个 - <code>$(selector).prev()</code>
@@ -125,14 +131,14 @@
 					索引查找 - <code>$(selector).eq(0)</code>
 				</li>
 				<!--<li>-->
-					<!--子元素查找 - <code>$(selector).children(selector)</code>-->
+				<!--子元素查找 - <code>$(selector).children(selector)</code>-->
 				<!--</li>-->
 				<li>
 					下级元素查找 - <code>$(selector).find(selector)</code>
 				</li>
 				<li>
 					遍历 - <code>$(selector).each(function(index){})</code>
-					<p class="text-info">function的第一个参数为遍历的索引值</p>
+					<span class="bg-info text-info">function的第一个参数为遍历的索引值</span>
 				</li>
 			</ul>
 		</div>
@@ -157,9 +163,9 @@
 		<button type="button" class="btn btn-default" data-cmd="7">$('#relate').find('li.on')</button>
 	</div>
 
-	<div class="panel panel-primary">
-		<div class="panel-heading">对象的属性/方法</div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-head">对象的属性/方法</div>
+		<div class="card-body">
 			<ul>
 				<li>
 					添加样式 - <code>$(selector).addClass(className)</code>
@@ -236,8 +242,6 @@
 				<li>
 					元素的值 - <code>$('input').val()</code>
 				</li>
-			</ul>
-			<ul>
 				<li>
 					获取实际位置 - <code>$(selector).get()</code>
 					<ul>
@@ -294,97 +298,93 @@
 	     height:30px;">
 			我就是那个受虐的bd
 		</div>
-		<form name="testFrm" class="form-horizontal">
+		<p></p>
+		<form name="testFrm" class="form grid grid-pad">
 			<div id="hwe" class="form-group">
 				<label class="www col-md-1 col-sm-3 text-right">Do you know: </label>
 				<div class="www col-md-10 col-sm-8">
-					<div class="radio-inline">
-						<label><input type="radio" name="know" value="yes">是</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="know" value="no" checked>否</label>
-					</div>
+					<label class="form-radio"><input type="radio" name="know" value="yes">是</label>
+					<label class="form-radio"><input type="radio" name="know" value="no" checked>否</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-1 col-sm-3 text-right">Name: </label>
-				<div class="col-md-10 col-sm-8">
-					<input type="text" name="name" class="form-control" value="angus">
-				</div>
+				<input type="text" name="name" class="col-md-10 col-sm-8" value="angus">
 			</div>
 			<div class="form-group">
 				<label class="col-md-1 col-sm-3 text-right">Content: </label>
-				<div class="col-md-10 col-sm-8">
-					<textarea name="content" class="form-control" rows="5">If you were a teardrop, In my eye,
+				<textarea name="content" class="col-md-10 col-sm-8" rows="5">If you were a teardrop, In my eye,
 For fear of losing you, I would never cry
 And if the golden sun, Should cease to shine its light,
 Just one smile from you, Would make my whole world bright</textarea>
-				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-md-offset-1 col-sm-offset-3 col-md-5 col-sm-4">
-					<select name="sourceSelect" size="5" multiple id="seS" class="form-control">
-						<option value="select-1">1</option>
-						<option value="select-2">2</option>
-						<option value="select-3">3</option>
-						<option value="select-4">4</option>
-						<option value="select-5">5</option>
-						<option value="select-6">6</option>
-					</select>
+				<div class="row">
+					<div class="col-md-offset-1 col-sm-offset-3 col-md-5 col-sm-4">
+						<select name="sourceSelect" size="5" multiple id="seS">
+							<option value="select-1">1</option>
+							<option value="select-2">2</option>
+							<option value="select-3">3</option>
+							<option value="select-4">4</option>
+							<option value="select-5">5</option>
+							<option value="select-6">6</option>
+						</select>
+					</div>
+					<div class="col-md-5 col-sm-4">
+						<select name="targetSelect" size="5" multiple id="seT" class="form-control"></select>
+					</div>
 				</div>
-				<div class="col-md-5 col-sm-4">
-					<select name="targetSelect" size="5" multiple id="seT" class="form-control"></select>
-				</div>
-				<div class="col-md-offset-1 col-sm-offset-3 col-md-5 col-sm-4 text-right">
-					<button type="button" class="btn btn-default" data-cmd="13">选中&gt;</button>
-					<button type="button" class="btn btn-default" data-cmd="15">全部&gt;&gt;</button>
-				</div>
-				<div class="col-md-5 col-sm-4">
-					<button type="button" class="btn btn-default" data-cmd="14">&lt;选中</button>
-					<button type="button" class="btn btn-default" data-cmd="16">&lt;&lt;全部</button>
+				<div class="row">
+					<div class="col-md-offset-1 col-sm-offset-3 col-md-5 col-sm-4 text-right">
+						<button type="button" class="btn btn-default" data-cmd="13">选中&gt;</button>
+						<button type="button" class="btn btn-default" data-cmd="15">全部&gt;&gt;</button>
+					</div>
+					<div class="col-md-5 col-sm-4">
+						<button type="button" class="btn btn-default" data-cmd="14">&lt;选中</button>
+						<button type="button" class="btn btn-default" data-cmd="16">&lt;&lt;全部</button>
+					</div>
 				</div>
 			</div>
 			<div id="chkb" class="form-group">
 				<div class="col-md-offset-1 col-sm-offset-3 col-md-10 col-sm-8">
-					<label class="checkbox-inline">
+					<label>
 						<input type="checkbox" id="cb1" name="checkbox_1" value="opt1">选项一
 					</label>
-					<label class="checkbox-inline">
+					<label>
 						<input type="checkbox" name="checkbox_1" value="opt2">选项二
 					</label>
-					<label class="checkbox-inline">
+					<label>
 						<input type="checkbox" name="cb3" value="opt3">选项三
 					</label>
-					<label class="checkbox-inline">
+					<label>
 						<input type="checkbox" name="checkbox_1" value="opt4">选项四
 					</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-offset-1 col-sm-offset-3 col-md-10 col-sm-8">
-					<label class="checkbox-inline">
+					<label>
 						<input type="checkbox" name="checkbox_1" value="not_chkcb" checked>非控制的选项
 					</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-offset-1 col-sm-offset-3 col-md-10 col-sm-8">
-					<button type="button" name="abc" class="btn btn-primary" data-cmd="9">提交</button>
-					<button type="button" name="abc" class="btn btn-default" data-cmd="10">全选</button>
-					<button type="button" name="abc" class="btn btn-default" data-cmd="11">反选</button>
-					<button type="button" name="abc" class="btn btn-default" data-cmd="12">不选</button>
+					<button type="submit" name="abc" data-cmd="9">提交</button>
+					<button type="button" name="abc" data-cmd="10">全选</button>
+					<button type="button" name="abc" data-cmd="11">反选</button>
+					<button type="button" name="abc" data-cmd="12">不选</button>
 				</div>
 			</div>
 		</form>
 	</div>
-
-	<div class="panel panel-primary">
-		<div class="panel-heading">事件</div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-head">事件</div>
+		<div class="card-body">
 			<ul>
 				<li>
 					事件绑定 - <code>$(selector).on(event, [selector, function])</code>
-					<p class="text-warning">*需要扩展方法<code>addEvent</code>支持</p>
+					<span class="bg-info text-info">需要扩展方法<code>addEvent()</code>支持</span>
 				</li>
 				<li>
 					链式引用 - <code>$(selector).html(...).show()</code>
@@ -394,27 +394,26 @@ Just one smile from you, Would make my whole world bright</textarea>
 	</div>
 	<div id="event" class="example">
 		<button type="button" class="btn btn-default" data-cmd="1">$('#st').html(...).show()</button>
-		<span id="st" class="label label-primary" style="display: none;">show and text</span>
+		<span id="st" class="badge badge-radius badge-primary" style="display: none;">show and text</span>
 		<p>绑定事件代码示例</p>
-<pre class="scrollable">
+		<pre><code>
 // 绑定a标签的点击事件
 $('a').on('click', function(){
-    console.log(this);
-    return false; // 阻步冒泡
+	console.log(this);
+	return false; // 阻步冒泡
 });
-</pre>
-<pre class="scrollable">
+		</code></pre>
+		<pre><code>
 // 事件代理, 绑定事件在父级上由子选择器对象触发
 $('ul#abc').on('click', 'li.on', function () {
-    console.log(this);
+	console.log(this);
 });
-
-</pre>
+		</code></pre>
 	</div>
 
-	<div class="panel panel-primary">
-		<div class="panel-heading">扩展</div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-head">扩展</div>
+		<div class="card-body">
 			<ul>
 				<li>
 					页面加载完成 - <code>$.load(function)</code>
@@ -458,13 +457,15 @@ $('ul#abc').on('click', 'li.on', function () {
 		</div>
 	</div>
 	<div id="extend" class="example">
-		<button type="button" class="btn btn-success" data-cmd="1">显示背景颜色的十六进制值 #449d44</button>
-		<button type="button" class="btn btn-info" data-cmd="2">显示背景颜色的值 rgb(49, 176, 213)</button>
-		<button type="button" class="btn btn-warning" data-cmd="3">显示文本颜色的值 rgb(255, 255, 255)</button>
-		<button type="button" class="btn btn-default" data-cmd="4">getCookie</button>
-		<button type="button" class="btn btn-default" data-cmd="5">setCookie 123456789</button>
-		<button type="button" class="btn btn-default" data-cmd="6">delCookie</button>
-		<div class="bubble bg-danger">
+		<button type="button" class="btn btn-success" data-cmd="1">显示背景颜色的十六进制值 #039b02</button>
+		<button type="button" class="btn btn-info" data-cmd="2">显示背景颜色的值 rgb(61, 181, 216)</button>
+		<button type="button" class="btn btn-warn" data-cmd="3">显示文本颜色的值 rgb(255, 255, 255)</button>
+		<div>
+			<button type="button" class="btn btn-default" data-cmd="4">getCookie</button>
+			<button type="button" class="btn btn-default" data-cmd="5">setCookie 123456789</button>
+			<button type="button" class="btn btn-default" data-cmd="6">delCookie</button>
+		</div>
+		<div class="bubble bg-error">
 			<button type="button" class="btn btn-default">Bubble</button>
 			<button type="button" id="f1" class="btn btn-default" data-cmd="7">Stop Bubble</button>
 			<button type="button" id="f2" class="btn btn-default">Stop Bubble 2</button>

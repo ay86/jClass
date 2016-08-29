@@ -163,6 +163,7 @@ $('#func').on('click', 'button', function () {
 			$('#bd').html('left: ' + $('#bd')[0].offsetLeft);
 			break;
 	}
+	return false;
 });
 
 $('#event').on('click', 'button', function () {
@@ -215,6 +216,7 @@ $('#f3').on('click', function () {
 	// 开始ajax请求, 并将xhr返回给AJAX_XHR供abort
 	AJAX_XHR = $.ajax({
 		url: 'http://localhost/ajax-delay.php',
+		dataType: 'JSON',
 		success: function () {
 			_me.html('ajax successfully').removeAttr('class').addClass('btn btn-success');
 		},
@@ -225,7 +227,7 @@ $('#f3').on('click', function () {
 });
 $('#f4').on('click', function () {
 	AJAX_XHR.abort();
-	$('#f3').html('ajax abort').removeAttr('class').addClass('btn btn-warning');
+	$('#f3').html('ajax abort').removeAttr('class').addClass('btn btn-warn');
 });
 // 全局ajax设置
 $.ajaxSet({
