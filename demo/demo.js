@@ -215,12 +215,12 @@ $('#f3').on('click', function () {
 	_me.html('ajax start...').removeAttr('class').addClass('btn btn-default');
 	// 开始ajax请求, 并将xhr返回给AJAX_XHR供abort
 	AJAX_XHR = $.ajax({
-		url: 'http://localhost/ajax-delay.php',
+		url     : 'http://localhost/ajax-delay.php',
 		dataType: 'JSON',
-		success: function () {
+		success : function () {
 			_me.html('ajax successfully').removeAttr('class').addClass('btn btn-success');
 		},
-		error: function () {
+		error   : function () {
 			_me.html('ajax error').removeAttr('class').addClass('btn btn-danger');
 		}
 	});
@@ -231,9 +231,9 @@ $('#f4').on('click', function () {
 });
 // 全局ajax设置
 $.ajaxSet({
-	data: {
+	data  : {
 		trigger: 'button'
 	},
-	type: 'post'
+	method: 'post'
 });
 //	alert($.isWho('360'));

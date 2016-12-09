@@ -30,6 +30,7 @@ jClass
 - `clone()` 克隆
 - `html()` 内部HTML
 - `outerHtml()` 外部HTML
+- `text()` 文本内容
 - `val()` 值
 - `eq()` 索引
 - `first()` 第一个
@@ -105,7 +106,7 @@ $.load(function(){
 ```js
 var xhr = $.ajax({
 	url: 'http://www.simple.com/simple.php',
-	type: 'POST',
+	method: 'POST',
 	dataType: 'JSON',
 	data: {
 		user: 'Angus',

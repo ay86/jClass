@@ -9,19 +9,19 @@
 		return;
 	}
 	$ = $.fn.extend($, {
-		ajax: function (jConfig) {
+		ajax   : function (jConfig) {
 			// Normal config
 			jConfig = $.fn.extend({
-				type: 'GET',
-				dataType: 'TEXT',
-				charset: 'utf-8',
-				cache: true,
-				async: true,
+				method    : 'GET',
+				dataType  : 'TEXT',
+				charset   : 'utf-8',
+				cache     : true,
+				async     : true,
 				retryCount: 3,
-				success: function () {
+				success   : function () {
 					console.log('Not callback success(), but AJAX request is successfully!');
 				},
-				error: function () {
+				error     : function () {
 					console.log('Request is Failed.');
 				}
 			}, this.globalAjax, jConfig);
@@ -65,22 +65,22 @@
 				sSendData = jConfig['data'];
 			}
 
-			jConfig['type'] = jConfig['type'].toUpperCase();
+			jConfig['method'] = jConfig['method'].toUpperCase();
 			jConfig['dataType'] = jConfig['dataType'].toUpperCase();
 
 			function __fRun() {
 				var aQuery = [];
-				if (jConfig['type'] === 'GET' && sSendData) {
+				if (jConfig['method'] === 'GET' && sSendData) {
 					aQuery.push(sSendData);
 				}
-				if (!jConfig['cache'] || jConfig['type'] === 'HEAD') {
+				if (!jConfig['cache'] || jConfig['method'] === 'HEAD') {
 					aQuery.push('_=' + Math.random());
 				}
 				if (aQuery.length) {
 					jConfig['url'] += (!!~jConfig['url'].indexOf('?') ? '&' : '?') + aQuery.join('&');
 				}
-				xhr.open(jConfig['type'], jConfig['url'], jConfig['async']);
-				if (jConfig['type'] === 'POST') {
+				xhr.open(jConfig['method'], jConfig['url'], jConfig['async']);
+				if (jConfig['method'] === 'POST') {
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded;charset=' + jConfig['charset']);
 				}
 				xhr.onreadystatechange = function () {
@@ -89,7 +89,7 @@
 							case 200:
 								var xResult;
 								// GET POST HEAD PUT DELETE CONNECT OPTIONS TRACE
-								switch (jConfig['type']) {
+								switch (jConfig['method']) {
 									case 'HEAD':
 										switch (jConfig['dataType']) {
 											case 'JSON':

@@ -11,7 +11,7 @@
 	}
 	var _extend = {
 		/* 页面加载完成 */
-		load: function (fFn) {
+		load      : function (fFn) {
 			if (typeof(fFn) !== 'function') {
 				fFn = Function(fFn);
 			}
@@ -23,7 +23,7 @@
 			}
 		},
 		/* DOM加载完成 */
-		domReady: function (fFn) {
+		domReady  : function (fFn) {
 			var _this = this;
 
 			function isDOMReady() {
@@ -55,7 +55,7 @@
 
 		},
 		/* 绑定事件 */
-		addEvent: function (e, t, f, c) {
+		addEvent  : function (e, t, f, c) {
 			if (e.attachEvent) {
 				e.attachEvent('on' + t, function () {
 					f.call(e, window.event);
@@ -69,7 +69,7 @@
 			}
 		},
 		/* 删除事件 */
-		delEvent: function (e, t, f) {
+		delEvent  : function (e, t, f) {
 			if (e.detachEvent) {
 				e.detachEvent('on' + t, f);
 			}
@@ -81,7 +81,7 @@
 			}
 		},
 		/* 识别浏览器 */
-		isWho: function (sKey) {
+		isWho     : function (sKey) {
 			var sUA = window.navigator.userAgent.toLowerCase();
 			switch (sKey.toLowerCase()) {
 				case 'ie':
@@ -182,7 +182,7 @@
 			}
 		},
 		/* 移动下拉列表项到目标下拉列表 */
-		listMove: function (oSource, oTarget) {
+		listMove  : function (oSource, oTarget) {
 			if (!!~oSource.selectedIndex) {
 				for (var i = 0; i < oSource.options.length; i++) {
 					if (oSource.options[i].selected) {
@@ -198,7 +198,7 @@
 			//}
 		},
 		/* 加载HTML文本内的某元素的HTML */
-		getHTML: function (sHtml, sSelector) {
+		getHTML   : function (sHtml, sSelector) {
 			if (!sHtml) {
 				return '';
 			}
@@ -216,7 +216,7 @@
 			}
 		},
 		/* cookie操作 */
-		cookie: {
+		cookie    : {
 			get: function (sCookie) {
 				if (sCookie) {
 					var aCookie = document.cookie.match(new RegExp('(^| )' + sCookie + '=([^;]*)(;|$)'));
@@ -242,4 +242,12 @@
 		}
 	};
 	$ = $.fn.extend($, _extend);
+	//	增强选择器功能 $(function) = $.domReady()
+	$.fn.plugIn = function (xArgs) {
+		if (typeof xArgs === 'function') {
+			$.domReady(xArgs);
+			return false;
+		}
+		return true;
+	};
 })(jClass);

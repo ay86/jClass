@@ -273,8 +273,8 @@
 		var aElem = __fGet(sExpression);
 		var oJC = {
 			// 选择器内置版本号
-			version: '2.0',
-			each: function (fCallBack) {
+			version    : '2.0',
+			each       : function (fCallBack) {
 				if (typeof fCallBack === 'function') {
 					__fAllElementsOpa(this.elements, function (index) {
 						fCallBack.call(this, index);
@@ -282,18 +282,18 @@
 				}
 				return this;
 			},
-			remove: function () {
+			remove     : function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.parentNode.removeChild(this);
 				});
 			},
-			removeAttr: function (sAttr) {
+			removeAttr : function (sAttr) {
 				__fAllElementsOpa(this.elements, function () {
 					this.removeAttribute(sAttr);
 				});
 				return this;
 			},
-			attr: function (sAttr, sAttrVal) {
+			attr       : function (sAttr, sAttrVal) {
 				if (sAttrVal) {
 					__fAllElementsOpa(this.elements, function () {
 						this.setAttribute(sAttr, sAttrVal);
@@ -304,7 +304,7 @@
 				}
 				return this;
 			},
-			data: function (sName, sValue) {
+			data       : function (sName, sValue) {
 				if (sValue) {
 					__fAllElementsOpa(this.elements, function () {
 						this.dataset[sName] = sValue;
@@ -315,7 +315,7 @@
 				}
 				return this;
 			},
-			addClass: function (sClassName) {
+			addClass   : function (sClassName) {
 				if (sClassName) {
 					__fAllElementsOpa(this.elements, function () {
 						var _class = this.getAttribute('class');
@@ -338,12 +338,12 @@
 				}
 				return this;
 			},
-			hasClass: function (sClassName) {
+			hasClass   : function (sClassName) {
 				var oObj = this.elements[0];
 				var sClass = ' ' + oObj.getAttribute('class') + ' ';
 				return !!~sClass.indexOf(' ' + sClassName + ' ');
 			},
-			append: function (oObj) {
+			append     : function (oObj) {
 				var _parent = this.elements[0];
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
@@ -360,7 +360,7 @@
 				}
 				return this;
 			},
-			appendTo: function (oObj) {
+			appendTo   : function (oObj) {
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
 				}
@@ -378,7 +378,7 @@
 				});
 				return this;
 			},
-			before: function (oObj) {
+			before     : function (oObj) {
 				var _current = this.elements[0];
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
@@ -395,7 +395,7 @@
 				}
 				return this;
 			},
-			beforeTo: function (oObj) {
+			beforeTo   : function (oObj) {
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
 				}
@@ -413,7 +413,7 @@
 					}
 				}
 			},
-			after: function (oObj) {
+			after      : function (oObj) {
 				var _current = this.elements[0];
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
@@ -430,7 +430,7 @@
 				}
 				return this;
 			},
-			afterTo: function (oObj) {
+			afterTo    : function (oObj) {
 				if (typeof oObj === 'string') {
 					oObj = __fGet(oObj)[0];
 				}
@@ -448,12 +448,12 @@
 					}
 				}
 			},
-			clone: function (bDeep) {
+			clone      : function (bDeep) {
 				var _obj = __extend__({}, this);
 				_obj.elements = [this.elements[0].cloneNode(true)];
 				return _obj;
 			},
-			html: function (sInner) {
+			html       : function (sInner) {
 				if (sInner) {
 					__fAllElementsOpa(this.elements, function () {
 						this['innerHTML'] = sInner;
@@ -464,26 +464,37 @@
 					return this.elements[0].innerHTML;
 				}
 			},
-			outerHtml: function () {
+			outerHtml  : function () {
 				return this.elements[0].outerHTML;
 			},
-			val: function (sValue) {
+			text       : function (sText) {
+				if (sText) {
+					__fAllElementsOpa(this.elements, function () {
+						this['innerHTML'] = sText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+					});
+					return this;
+				}
+				else {
+					return this.elements[0].innerHTML.replace(/<.+?>/g, '');
+				}
+			},
+			val        : function (sValue) {
 				if (sValue) {
 					this.elements[0].value = sValue;
 					return this;
 				}
 				return this.elements[0].value;
 			},
-			eq: function (nIndex) {
+			eq         : function (nIndex) {
 				return _jClass(this.elements[nIndex]);
 			},
-			first: function () {
+			first      : function () {
 				return this.eq(0);
 			},
-			last: function () {
+			last       : function () {
 				return this.eq(this.elements.length - 1);
 			},
-			prev: function () {
+			prev       : function () {
 				var oObj = this.elements[0].previousSibling;
 				if (oObj) {
 					if (!oObj.tagName || oObj.tagName == '!') {
@@ -492,7 +503,7 @@
 					return _jClass(oObj);
 				}
 			},
-			next: function () {
+			next       : function () {
 				var oObj = this.elements[0].nextSibling;
 				if (oObj) {
 					if (!oObj.tagName || oObj.tagName == '!') {
@@ -505,11 +516,11 @@
 			// 	var oObj = this.elements[0];
 			// 	return _jClass(sSelector, oObj);
 			// },
-			find: function (sSelector) {
+			find       : function (sSelector) {
 				var oObj = this.elements[0];
 				return _jClass(sSelector, oObj);
 			},
-			css: function (sProp, sValue) {
+			css        : function (sProp, sValue) {
 				var oObj = this.elements[0];
 				if (typeof sProp === 'string') {
 					if (sValue) {
@@ -532,13 +543,13 @@
 					return this;
 				}
 			},
-			width: function () {
+			width      : function () {
 				return this.elements[0].offsetWidth;
 			},
-			height: function () {
+			height     : function () {
 				return this.elements[0].offsetHeight;
 			},
-			innerWidth: function () {
+			innerWidth : function () {
 				var oObj = this.elements[0];
 				var nResult = oObj.offsetWidth;
 				if (!isNaN(parseInt(this.css('paddingLeft'), 10))) {
@@ -572,7 +583,7 @@
 				}
 				return nResult;
 			},
-			alpha: function (nAlpha) {
+			alpha      : function (nAlpha) {
 				__fAllElementsOpa(this.elements, function () {
 					//	判断是否为IE9-
 					if (!-[1,]) {
@@ -590,13 +601,13 @@
 				});
 				return this;
 			},
-			show: function () {
+			show       : function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.style.display = 'block';
 				});
 				return this;
 			},
-			hide: function () {
+			hide       : function () {
 				__fAllElementsOpa(this.elements, function () {
 					this.style.display = 'none';
 				});
@@ -618,8 +629,12 @@
 
 	/* 类原型 */
 	function __class__() {
+		var _this = this;
 		return function () {
-			return new __proto__(Array.prototype.slice.call(arguments, 0));
+			var aArgs = Array.prototype.slice.call(arguments, 0);
+			if (_this.plugIn.apply(_this, aArgs)) {
+				return new __proto__(aArgs);
+			}
 		};
 	}
 
@@ -630,4 +645,8 @@
 	jClass.fn = __class__.prototype;
 	// 将继承方法写入类
 	jClass.fn.extend = __extend__;
+	// 扩展插件用原型方法
+	jClass.fn.plugIn = function () {
+		return true;
+	};
 })();
