@@ -1,6 +1,4 @@
 .idea/
 node_modules/
 tmp/
-.DS_Store
-package.json
 gulpfile.js

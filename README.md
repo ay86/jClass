@@ -1,6 +1,6 @@
 jClass
 =======================
-    一个小巧的javascript方法类库，并且提供部分动画交互效果。
+> 一个小巧的javascript方法类库，并且提供部分动画交互效果。
 
 ##Selector
 
@@ -123,3 +123,6 @@ var xhr = $.ajax({
 	}
 });
 ```
+
+##Author
+&copy; AngusYoung <angusyoung@mrxcool.com> [Home](http://mrxcool.com)

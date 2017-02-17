@@ -1,3 +1,8 @@
+/*!*
+ * jClass - A small JavaScript library
+ * @Version: 1.0.10
+ * @Author: AngusYoung
+ */
 /*
  * @Author Angus <angusyoung@mrxcool.com>
  * @Description jClass源文件
