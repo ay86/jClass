@@ -1436,7 +1436,7 @@
 		var oObj = this.elements[0];
 		var oDoc = typeof document.body.style.webkitTransition !== 'undefined' ? document.body : document.documentElement;
 		var oDomRect = document.documentElement.getBoundingClientRect();
-		if (typeof oObj.getBoundingClientRect == 'function') {
+		if (typeof oObj.getBoundingClientRect !== 'function') {
 			oObj.getBoundingClientRect = function () {
 				var _me = this;
 				var _parent = {
@@ -1531,3 +1531,22 @@
 		}
 	};
 })(jClass.fx);
+/**
+ * @Author Angus <angusyoung@mrxcool.com>
+ * @Description UMD
+ * @Since 2017/2/17
+ */
+
+(function (root, name, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	}
+	else if (typeof module != 'undefined') {
+		module.exports = factory();
+	}
+	else {
+		root[name] = factory();
+	}
+})(this, 'jClass', function () {
+	return jClass;
+});

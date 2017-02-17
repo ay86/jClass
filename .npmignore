@@ -5,4 +5,5 @@ demo/
 old_version/
 res/
 gulpfile.js
+umd.js
 .npmignore
