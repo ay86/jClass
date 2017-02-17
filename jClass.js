@@ -1,6 +1,6 @@
 /*!*
  * jClass - A small JavaScript library
- * @Version: 1.0.11
+ * @Version: 1.0.12
  * @Author: AngusYoung
  */
 /*
@@ -183,7 +183,7 @@
 					if (aProp.length === 2) {
 						sProp = aProp[0];
 						sVal = aProp[1].replace(/^(['|"]*)([^'"]*)\1$/, '$2');
-						console.info(sVal)
+						void 0
 					}
 					for (i = 0; i < oObj.length; i++) {
 						if (sProp) {
@@ -282,13 +282,13 @@
 		}
 
 		var _jClass = jClass;
-		// console.log('selector:', sExpression);
-		// console.time('use time');
+		void 0;
+		void 0;
 		var aElem = __fGet(sExpression);
-		// console.timeEnd('use time');
+		void 0;
 		var oJC = {
 			// 选择器内置版本号
-			version    : '2.0',
+			version    : '2.1',
 			each       : function (fCallBack) {
 				if (typeof fCallBack === 'function') {
 					__fAllElementsOpa(this.elements, function (index) {
@@ -654,7 +654,7 @@
 		};
 	}
 
-	window.jClass = new __class__();
+	this.jClass = new __class__();
 	// 输出数据对象类供扩展
 	jClass.fx = __proto__.prototype;
 	// 输出类原型供扩展
@@ -720,10 +720,10 @@
 				async     : true,
 				retryCount: 3,
 				success   : function () {
-					console.log('Not callback success(), but AJAX request is successfully!');
+					void 0;
 				},
 				error     : function () {
-					console.log('Request is Failed.');
+					void 0;
 				}
 			}, this.globalAjax, jConfig);
 			// 是否全部都有此方法，还是只在error发生时才有

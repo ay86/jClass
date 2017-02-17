@@ -277,13 +277,13 @@
 		}
 
 		var _jClass = jClass;
-		// console.log('selector:', sExpression);
-		// console.time('use time');
+		console.log('selector:', sExpression);
+		console.time('use time');
 		var aElem = __fGet(sExpression);
-		// console.timeEnd('use time');
+		console.timeEnd('use time');
 		var oJC = {
 			// 选择器内置版本号
-			version    : '2.0',
+			version    : '2.1',
 			each       : function (fCallBack) {
 				if (typeof fCallBack === 'function') {
 					__fAllElementsOpa(this.elements, function (index) {
@@ -649,7 +649,7 @@
 		};
 	}
 
-	window.jClass = new __class__();
+	this.jClass = new __class__();
 	// 输出数据对象类供扩展
 	jClass.fx = __proto__.prototype;
 	// 输出类原型供扩展
