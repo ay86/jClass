@@ -1,6 +1,6 @@
 /*!*
  * jClass - A small JavaScript library
- * @Version: 1.0.10
+ * @Version: 1.0.11
  * @Author: AngusYoung
  */
 /*
@@ -282,10 +282,10 @@
 		}
 
 		var _jClass = jClass;
-		console.log('selector:', sExpression);
-		console.time('use time');
+		// console.log('selector:', sExpression);
+		// console.time('use time');
 		var aElem = __fGet(sExpression);
-		console.timeEnd('use time');
+		// console.timeEnd('use time');
 		var oJC = {
 			// 选择器内置版本号
 			version    : '2.0',
@@ -1436,7 +1436,7 @@
 		var oObj = this.elements[0];
 		var oDoc = typeof document.body.style.webkitTransition !== 'undefined' ? document.body : document.documentElement;
 		var oDomRect = document.documentElement.getBoundingClientRect();
-		if (typeof oObj.getBoundingClientRect == 'function') {
+		if (typeof oObj.getBoundingClientRect !== 'function') {
 			oObj.getBoundingClientRect = function () {
 				var _me = this;
 				var _parent = {
@@ -1531,3 +1531,22 @@
 		}
 	};
 })(jClass.fx);
+/**
+ * @Author Angus <angusyoung@mrxcool.com>
+ * @Description UMD
+ * @Since 2017/2/17
+ */
+
+(function (root, name, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	}
+	else if (typeof module != 'undefined') {
+		module.exports = factory();
+	}
+	else {
+		root[name] = factory();
+	}
+})(this, 'jClass', function () {
+	return jClass;
+});

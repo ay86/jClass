@@ -251,7 +251,7 @@
 		var oObj = this.elements[0];
 		var oDoc = typeof document.body.style.webkitTransition !== 'undefined' ? document.body : document.documentElement;
 		var oDomRect = document.documentElement.getBoundingClientRect();
-		if (typeof oObj.getBoundingClientRect == 'function') {
+		if (typeof oObj.getBoundingClientRect !== 'function') {
 			oObj.getBoundingClientRect = function () {
 				var _me = this;
 				var _parent = {

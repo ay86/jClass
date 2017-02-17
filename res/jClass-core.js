@@ -277,10 +277,10 @@
 		}
 
 		var _jClass = jClass;
-		console.log('selector:', sExpression);
-		console.time('use time');
+		// console.log('selector:', sExpression);
+		// console.time('use time');
 		var aElem = __fGet(sExpression);
-		console.timeEnd('use time');
+		// console.timeEnd('use time');
 		var oJC = {
 			// 选择器内置版本号
 			version    : '2.0',
