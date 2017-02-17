@@ -1,6 +1,6 @@
-.idea
-.svn
+.idea/
+node_modules/
+tmp/
 .DS_Store
-node_modules
 package.json
 gulpfile.js

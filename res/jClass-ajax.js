@@ -183,7 +183,7 @@
 												// 自定义的数据类型，只有使用 HEAD 方式时才有
 												var _this = this;
 												xResult = function (sKey) {
-													// _this.getResponseHeader("Last-Modified");
+													//     _this.getResponseHeader("Last-Modified");
 													return _this.getResponseHeader(sKey);
 												};
 												break;

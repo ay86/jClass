@@ -217,10 +217,28 @@ $('#f3').on('click', function () {
 	AJAX_XHR = $.ajax({
 		url     : 'http://localhost/ajax-delay.php',
 		dataType: 'JSON',
-		success : function () {
+		data    : {
+			name  : 'angus',
+			age   : 30,
+			vip   : true,
+			flag  : [1, 2, 4, {
+				id   : 6,
+				title: 'close'
+			}, 9],
+			test  : function () {
+			},
+			isNull: null,
+			info  : {
+				phone: 13800138000,
+				tag  : 'iphone'
+			}
+		},
+		success : function (response) {
 			_me.html('ajax successfully').removeAttr('class').addClass('btn btn-success');
 		},
-		error   : function () {
+		error   : function (error) {
+			console.error(error);
+			// this.retry();
 			_me.html('ajax error').removeAttr('class').addClass('btn btn-danger');
 		}
 	});

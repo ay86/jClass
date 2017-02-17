@@ -237,40 +237,50 @@
 				return __fSingle(sExpr);
 			}
 			var aResult = [];
-			var aExpr = sExpr.split(' ');
-			var nLast = aExpr.length - 1;
-			var sCurrent = aExpr[nLast];
-			if (aExpr.length > 1) {
-				// multiple
-				var aAssert = aExpr.slice(0, -1);
-				var aChildren = __fGet(sCurrent);
-				for (var j = 0; j < aChildren.length; j++) {
-					var oChildren = aChildren[j];
-					var bHas = __fFindParent(aAssert, oChildren);
-					bHas && aResult.push(oChildren);
-				}
+			if (typeof document.querySelectorAll === 'function' && !/@/g.test(sExpr)) {
+				var oScope = oScopeDOM || document;
+				oScope['version'] && (oScope = oScope[0]);
+				aResult = Array.prototype.slice.call(oScope.querySelectorAll(sExpr), 0);
 			}
 			else {
-				// single
-				var aChain = __fChain(sCurrent);
-				var aCurrent = __fSingle(aChain[0]);
-				if (aChain.length > 1) {
-					// 存在链式
-					for (var k = 0; k < aCurrent.length; k++) {
-						if (__fAssert(aCurrent[k], aChain.slice(1))) {
-							aResult.push(aCurrent[k]);
-						}
+				var aExpr = sExpr.split(' ');
+				var nLast = aExpr.length - 1;
+				var sCurrent = aExpr[nLast];
+				if (aExpr.length > 1) {
+					// multiple
+					var aAssert = aExpr.slice(0, -1);
+					var aChildren = __fGet(sCurrent);
+					for (var j = 0; j < aChildren.length; j++) {
+						var oChildren = aChildren[j];
+						var bHas = __fFindParent(aAssert, oChildren);
+						bHas && aResult.push(oChildren);
 					}
 				}
 				else {
-					aResult = aCurrent;
+					// single
+					var aChain = __fChain(sCurrent);
+					var aCurrent = __fSingle(aChain[0]);
+					if (aChain.length > 1) {
+						// 存在链式
+						for (var k = 0; k < aCurrent.length; k++) {
+							if (__fAssert(aCurrent[k], aChain.slice(1))) {
+								aResult.push(aCurrent[k]);
+							}
+						}
+					}
+					else {
+						aResult = aCurrent;
+					}
 				}
 			}
 			return aResult;
 		}
 
 		var _jClass = jClass;
+		console.log('selector:', sExpression);
+		console.time('use time');
 		var aElem = __fGet(sExpression);
+		console.timeEnd('use time');
 		var oJC = {
 			// 选择器内置版本号
 			version    : '2.0',
@@ -475,7 +485,8 @@
 					return this;
 				}
 				else {
-					return this.elements[0].innerHTML.replace(/<.+?>/g, '');
+					// /( +)?<.+?>|\r|\n/g
+					return this.elements[0].innerText;
 				}
 			},
 			val        : function (sValue) {
