@@ -5,9 +5,6 @@ jClass
 ##Selector
 
 	DOM选择器
-	@param sExpression {String || Object} DOM对象或者表达式字符串，支持一般的类型查找
-	@param oScopeDOM {Object} DOM对象，做为查找对象的父级元素
-	@returns {Object} 返回一个查找结果集以及相关的方法
 
 使用方法与jQuery的基本一致，但只提供部分API。
 支持`tagName`, `className`, `name`, `id`, `attribute`, `string` 等方式选择或创建DOM对象。
@@ -97,8 +94,6 @@ $.load(function(){
 ##Ajax
 
 	AJAX请求
-	@param jConfig {Object} 请求的参数配置
-	@returns {XMLHttpRequest} 返回XHR对象
 
 方法执行后返回XHR对象，可将此对象赋值给变量后，执行`abort()`操作。
 本方法提供AJAX重发功能，可在触发`error`回调时执行`retry()`方法，重新执行AJAX请求，重试次数由配置`retryCount`指定，默认为3次。
@@ -125,4 +120,8 @@ var xhr = $.ajax({
 ```
 
 ##Author
-&copy; AngusYoung <angusyoung@mrxcool.com> [Home](http://mrxcool.com)
+&copy; AngusYoung 
+
+E-mail <angusyoung@mrxcool.com>
+
+Home (http://mrxcool.com)

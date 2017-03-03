@@ -1,6 +1,6 @@
 /*!*
  * jClass - A small JavaScript library
- * @Version: 1.0.12
+ * @Version: 1.0.13
  * @Author: AngusYoung
  */
 /*
@@ -1239,6 +1239,7 @@
 				}
 			});
 		});
+		return this;
 	};
 	/* 淡入淡出 */
 	$.fade = function (nValue, nStep, fFn) {
@@ -1440,23 +1441,23 @@
 			oObj.getBoundingClientRect = function () {
 				var _me = this;
 				var _parent = {
-					top: 0,
+					top   : 0,
 					bottom: 0,
-					left: 0,
-					right: 0
+					left  : 0,
+					right : 0
 				};
 				if (_me.offsetParent) {
 					_parent = arguments.callee.call(_me.offsetParent);
 				}
 				return {
-					top: _me.offsetTop + _parent.top,
+					top   : _me.offsetTop + _parent.top,
 					bottom: _me.offsetTop + _me.offsetHeight + _parent.top,
-					left: _me.offsetLeft + _parent.left,
-					right: _me.offsetLeft + _me.offsetWidth + _parent.left
+					left  : _me.offsetLeft + _parent.left,
+					right : _me.offsetLeft + _me.offsetWidth + _parent.left
 				}
 			};
 			oDoc = {
-				scrollTop: 0,
+				scrollTop : 0,
 				scrollLeft: 0
 			};
 			oDomRect = {
@@ -1465,16 +1466,16 @@
 		}
 
 		return {
-			top: (function () {
+			top   : (function () {
 				return oObj.getBoundingClientRect().top + oDoc.scrollTop;
 			})(),
 			bottom: (function () {
 				return oObj.getBoundingClientRect().bottom + oDoc.scrollTop;
 			})(),
-			left: (function () {
+			left  : (function () {
 				return oObj.getBoundingClientRect().left + oDoc.scrollLeft - oDomRect.left;
 			})(),
-			right: (function () {
+			right : (function () {
 				return oObj.getBoundingClientRect().right + oDoc.scrollLeft - oDomRect.left;
 			})()
 		};

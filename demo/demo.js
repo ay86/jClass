@@ -198,6 +198,8 @@ $('#extend').on('click', 'button', function () {
 });
 $('#abc').on('click', 'li.on', function () {
 	alert('点击了' + this.innerHTML);
+}).on('mouseleave',function () {
+	console.log('mouse leave');
 });
 
 $('.bubble').on('click', function () {

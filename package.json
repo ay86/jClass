@@ -1,6 +1,6 @@
 {
   "name": "jclass.js",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "一个小巧的javascript方法类库",
   "main": "jClass.js",
   "devDependencies": {
