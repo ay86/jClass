@@ -120,8 +120,9 @@ var xhr = $.ajax({
 ```
 
 ## Author
+
 &copy; AngusYoung 
 
-E-mail <angusyoung@mrxcool.com>
+E-mail: <angusyoung@mrxcool.com>
 
-Home (http://mrxcool.com)
+Home: http://mrxcool.com
