@@ -1,8 +1,8 @@
-jClass
-=======================
+# jClass
+
 > 一个小巧的javascript方法类库，并且提供部分动画交互效果。
 
-##Selector
+## Selector
 
 	DOM选择器
 
@@ -65,7 +65,7 @@ $('a').on('click', function(){
 	return false;
 });
 ```
-##Extend
+## Extend
 
 	扩展方法
 
@@ -91,7 +91,7 @@ $.load(function(){
 });
 ```
 
-##Ajax
+## Ajax
 
 	AJAX请求
 
@@ -119,7 +119,7 @@ var xhr = $.ajax({
 });
 ```
 
-##Author
+## Author
 &copy; AngusYoung 
 
 E-mail <angusyoung@mrxcool.com>
